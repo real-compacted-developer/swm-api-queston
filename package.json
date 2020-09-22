@@ -1,10 +1,12 @@
 {
   "name": "backend",
+  "license": "MIT",
   "version": "0.0.0",
   "scripts": {
-    "start": "ts-node src/index.ts --env=production",
-    "start:dev": "nodemon",
-    "test": "nodemon"
+    "start": "ts-node src/index.ts --env=development",
+    "deploy": "ts-node src/index.ts --env=production",
+    "dev": "nodemon",
+    "test": "nodemon --env=test"
   },
   "nodemonConfig": {
     "watch": [
