@@ -1,8 +1,9 @@
 import { Router } from "express";
-import questionAPI from "./question";
 
 const router = Router();
 
-router.use("/", questionAPI);
+router.get("/echo", (req, res) => {
+  res.send("echo");
+});
 
 export default router;
