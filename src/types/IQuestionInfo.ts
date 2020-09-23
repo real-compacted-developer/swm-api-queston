@@ -1,4 +1,4 @@
-interface IQuestionInfo {
+export interface IQuestionInfo {
   id: number; // 유니크한 id 값
 
   userInfo: {
@@ -15,5 +15,3 @@ interface IQuestionInfo {
 
   content: string; // 질문 내용
 }
-
-export default IQuestionInfo;
