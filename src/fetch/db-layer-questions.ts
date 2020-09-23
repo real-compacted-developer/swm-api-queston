@@ -10,8 +10,6 @@ async function testConnection(roomNumber: number, option: Option) {
   const dummyData: IQuestionRow[] = JSON.parse(JSON.stringify(dummyQuestionRow))
     .default;
 
-  console.log(option);
-
   if (option?.sortBy === "created") {
     dummyData.sort(
       (a: IQuestionRow, b: IQuestionRow) =>
@@ -33,14 +31,16 @@ async function testConnection(roomNumber: number, option: Option) {
 }
 
 async function fetch(roomNumber: number, option: Option) {
-  const dummyData: IQuestionRow[] = JSON.parse(
-    JSON.stringify(dummyQuestionRow)
-  );
+  const dummyData: IQuestionRow[] = JSON.parse(JSON.stringify(dummyQuestionRow))
+    .default;
 
   return dummyData;
 }
 
-let fetchQuestion: Function;
+let fetchQuestion: (
+  roomNumber: number,
+  option: Option
+) => Promise<IQuestionRow[]>;
 
 if (process.env.NODE_ENV === "test") {
   fetchQuestion = testConnection;
