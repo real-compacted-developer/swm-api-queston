@@ -15,16 +15,12 @@ async function testConnection(roomNumber: number, option: Option) {
       (a: IQuestionRow, b: IQuestionRow) =>
         Number(a.createdAt) - Number(b.createdAt)
     );
-
-    if (option?.orderBy === "desc") {
-      dummyData.reverse();
-    }
   } else if (option?.sortBy === "like") {
     dummyData.sort((a: IQuestionRow, b: IQuestionRow) => a.like - b.like);
+  }
 
-    if (option?.orderBy === "desc") {
-      dummyData.reverse();
-    }
+  if (option?.orderBy === "desc") {
+    dummyData.reverse();
   }
 
   return dummyData;
