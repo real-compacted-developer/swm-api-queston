@@ -11,6 +11,7 @@ const dummyQuestionRow: IQuestionRow[] = [
     },
     like: 0,
     content: "이부분을 잘 모르겠어요",
+    createdAt: new Date("2020-09-20"),
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const dummyQuestionRow: IQuestionRow[] = [
     },
     like: 3,
     content: "어려워요",
+    createdAt: new Date("2020-09-21"),
   },
 ];
 

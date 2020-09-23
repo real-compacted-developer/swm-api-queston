@@ -7,4 +7,5 @@ export interface IQuestionRow {
     order: number;
     url: string;
   };
+  createdAt: Date;
 }
