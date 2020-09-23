@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import { body, validationResult, buildCheckFunction } from "express-validator";
 
-import { DBLayerQuestion } from "../fetch";
-import { IQuestionInfo } from "../types";
+import { DBLayerQuestion, DBLayerUser } from "../fetch";
+import { IQuestionInfo, IUserRow } from "../types";
 
 const checkParamAndQuery = buildCheckFunction(["params", "query"]);
 
@@ -22,7 +22,7 @@ type FailResponse = {
 };
 
 /**
- * @api {get} /study/:roomNumber/questions?sort_by=created&order=asc 방의 질문 목록을 가져옴
+ * @api {get} /study/:roomNumber/questions?sort_by=created&order_by=asc 방의 질문 목록을 가져옴
  * @apiName GetQuestions
  * @apiGroup Question
  *
@@ -34,7 +34,7 @@ type FailResponse = {
  */
 router.get(
   "/study/:roomNumber/questions",
-  [checkParamAndQuery("roomNumber").isString()],
+  [checkParamAndQuery("roomNumber").isNumeric()],
   async (req: Request, res: Response) => {
     if (!validationResult(req).isEmpty()) {
       const responseJSON: FailResponse = {
@@ -47,20 +47,57 @@ router.get(
     }
 
     const { roomNumber } = req.params;
-    const { sort_by, order } = req.query;
+    const { sort_by, order_by } = req.query;
 
-    const query = {
-      sortBy: sort_by,
-      orderBy: order,
-    };
+    const query: {
+      sortBy?: "created" | "like";
+      orderBy?: "asc" | "desc";
+    } = {};
+    if (sort_by === "created" || sort_by === "like") query.sortBy = sort_by;
+    if (order_by === "asc" || order_by === "desc") query.orderBy = order_by;
 
-    const questionData = await DBLayerQuestion.default(roomNumber, query);
+    const questionData = await DBLayerQuestion.default(
+      Number(roomNumber),
+      query
+    );
+
+    const userIdArray = questionData.map((cur) => cur.writer);
+    const userMap = new Map<number, IUserRow>();
+
+    await userIdArray.forEach((key) => {
+      DBLayerUser.default(key).then((user) => {
+        if (!user) return;
+        userMap.set(key, user);
+      });
+    });
+
+    const responseData: IQuestionInfo[] = questionData.reduce((pre, cur) => {
+      const user = userMap.get(cur.writer);
+      if (!user) return pre;
+
+      const question: IQuestionInfo = {
+        id: cur.id,
+        userInfo: {
+          userName: user.nickname,
+          profileImageURL: user.profileImage,
+        },
+        slideInfo: {
+          page: cur.slide.order,
+          imageURL: cur.slide.url,
+        },
+        like: cur.like,
+        content: cur.content,
+      };
+
+      pre.push(question);
+      return pre;
+    }, new Array<IQuestionInfo>());
 
     const responseJSON: SuccessResponse = {
       success: true,
       message: "SUCCESS",
       data: {
-        questions: questionData,
+        questions: responseData,
       },
     };
 
