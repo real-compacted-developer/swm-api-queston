@@ -1,11 +1,15 @@
 export interface IQuestionRow {
   id: number; // PK
+  title: string;
   content: string;
-  like: number;
-  writer: number; // FK - user
-  slide: {
-    order: number;
-    url: string;
+  user: {
+    id: string;
+    nickname: string;
+    email?: string;
+    profileImage: string;
   };
-  createdAt: Date;
+  like: number;
+  slideOrder: number;
+  slideImageURL: string;
+  createdAt: string;
 }

@@ -3,27 +3,37 @@ import { IQuestionRow } from "../types";
 const dummyQuestionRow: IQuestionRow[] = [
   {
     id: 1,
-    writer: 1,
-    slide: {
-      order: 1,
-      url:
-        "https://www.easygiftproducts.co.uk/16555/dolu-my-first-slide-030016-.jpg",
-    },
+    slideImageURL:
+      "https://www.easygiftproducts.co.uk/16555/dolu-my-first-slide-030016-.jpg",
+    slideOrder: 1,
     like: 0,
+    title: "이부분 질문",
+    user: {
+      id: "1",
+      nickname: "김철수",
+      email: "chulsu@gmmail.com",
+      profileImage:
+        "https://cdn1.iconfinder.com/data/icons/female-avatars-vol-1/256/female-portrait-avatar-profile-woman-sexy-afro-2-512.png",
+    },
     content: "이부분을 잘 모르겠어요",
-    createdAt: new Date("2020-09-20"),
+    createdAt: "2020-09-20T04:58:22.304Z",
   },
   {
     id: 2,
-    writer: 2,
-    slide: {
-      order: 3,
-      url:
-        "https://support.strava.com/hc/article_attachments/360057537172/Fullscreen_5_18_20__5_17_PM.jpg",
+    slideOrder: 3,
+    slideImageURL:
+      "https://support.strava.com/hc/article_attachments/360057537172/Fullscreen_5_18_20__5_17_PM.jpg",
+    user: {
+      id: "2",
+      nickname: "홍길동",
+      email: "hong@korea.com",
+      profileImage:
+        "https://eruditegroup.co.nz/wp-content/uploads/2016/07/profile-dummy3.png",
     },
     like: 3,
+    title: "이부분이 어려워요",
     content: "어려워요",
-    createdAt: new Date("2020-09-21"),
+    createdAt: "2020-09-21T04:58:22.304Z",
   },
 ];
 
