@@ -50,7 +50,7 @@ async function fetchData(roomNumber: number, option: Option) {
   return dummyData;
 }
 
-let fetchQuestion: (
+export let fetchQuestion: (
   roomNumber: number,
   option: Option
 ) => Promise<IQuestionRow[]>;
@@ -60,5 +60,3 @@ if (process.env.NODE_ENV === "test") {
 } else {
   fetchQuestion = fetchData;
 }
-
-export default fetchQuestion;

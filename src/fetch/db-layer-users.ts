@@ -25,12 +25,10 @@ async function fetch(userId: number) {
   return user;
 }
 
-let fetchUser: (userId: number) => Promise<IUserRow | undefined>;
+export let fetchUser: (userId: number) => Promise<IUserRow | undefined>;
 
 if (process.env.NODE_ENV === "test") {
   fetchUser = testConnection;
 } else {
   fetchUser = fetch;
 }
-
-export default fetchUser;
