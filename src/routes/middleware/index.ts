@@ -1,1 +1,2 @@
-export * as getQuestions from "./get-questions";
+export { getQuestions } from "./get-questions";
+export { updateLike } from "./update-like";
