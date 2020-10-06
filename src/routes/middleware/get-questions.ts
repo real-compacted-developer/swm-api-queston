@@ -17,7 +17,7 @@ type FailResponse = {
   message: string;
 };
 
-export default async function getQuestions(req: Request, res: Response) {
+export async function getQuestions(req: Request, res: Response) {
   if (!validationResult(req).isEmpty()) {
     const responseJSON: FailResponse = {
       success: false,
@@ -38,7 +38,7 @@ export default async function getQuestions(req: Request, res: Response) {
   if (sort_by === "created" || sort_by === "like") query.sortBy = sort_by;
   if (order_by === "asc" || order_by === "desc") query.orderBy = order_by;
 
-  const questionData = await DBLayerQuestion.default(Number(roomNumber), query);
+  const questionData = await DBLayerQuestion(Number(roomNumber), query);
 
   const responseData: IQuestionInfo[] = questionData.reduce((pre, cur) => {
     const question: IQuestionInfo = {
