@@ -1,6 +1,7 @@
 export interface IUserRow {
-  userId: number; // PK
+  id: string; // PK
   nickname: string;
   email: string;
   profileImage: string;
+  isPremium: boolean;
 }
