@@ -1,10 +1,10 @@
 import { IUserRow } from "./";
 
 export type QuestionData = {
-  user: IUserRow;
-  title: String;
-  content: String;
-  slideOrder: Number;
-  slideImageURL: String;
-  studyDataId: String;
+  user: string;
+  title: string;
+  content: string;
+  slideOrder: number;
+  slideImageURL: string;
+  studyDataId: string;
 };
