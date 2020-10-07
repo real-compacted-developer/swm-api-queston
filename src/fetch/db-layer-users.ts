@@ -15,11 +15,15 @@ async function testConnection(userId: string): Promise<IUserRow | undefined> {
 }
 
 async function fetch(userId: string): Promise<IUserRow | undefined> {
-  const userData = await axios
+  const response = await axios
     .get(`${process.env.DB_LAYER_HOST}/user/${userId}`)
     .then((response) => response.data);
 
-  return userData;
+  if (response.success === false) {
+    return undefined;
+  }
+
+  return response.data;
 }
 
 export let fetchUser: (userId: string) => Promise<IUserRow | undefined>;
