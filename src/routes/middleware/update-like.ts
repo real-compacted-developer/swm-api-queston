@@ -2,13 +2,23 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
 import { DBLayerQuestionIncrease, DBLayerQuestionDecrease } from "../../fetch";
-import { IQuestionInfo } from "../../types";
+
+type Question = {
+  id: number;
+  user: string;
+  slideInfo: {
+    page: number;
+    imageURL: string;
+  };
+  like: number;
+  content: string;
+};
 
 type SuccessResponse = {
   success: true;
   message: string;
   data: {
-    question: IQuestionInfo;
+    question: Question;
   };
 };
 
@@ -48,12 +58,9 @@ export async function updateLike(req: Request, res: Response) {
     return;
   }
 
-  const question: IQuestionInfo = {
+  const question: Question = {
     id: questionData.id,
-    userInfo: {
-      userName: questionData.user.nickname,
-      profileImageURL: questionData.user.profileImage,
-    },
+    user: questionData.user,
     slideInfo: {
       page: questionData.slideOrder,
       imageURL: questionData.slideImageURL,
