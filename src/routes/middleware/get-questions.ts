@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
-import { DBLayerQuestion } from "../../fetch";
-import { IQuestionInfo } from "../../types";
+import { DBLayerQuestion, DBLayerUser } from "../../fetch";
+import { IQuestionInfo, IUserRow } from "../../types";
 
 type SuccessResponse = {
   success: true;
@@ -40,12 +40,25 @@ export async function getQuestions(req: Request, res: Response) {
 
   const questionData = await DBLayerQuestion(Number(roomNumber), query);
 
+  const userIdArray = questionData.map((cur) => cur.user);
+  const userMap = new Map<string, IUserRow>();
+
+  for (const key of userIdArray) {
+    const userData = await DBLayerUser(key);
+
+    if (!userData) return;
+    userMap.set(key, userData);
+  }
+
   const responseData: IQuestionInfo[] = questionData.reduce((pre, cur) => {
+    const user = userMap.get(cur.user);
+    if (!user) return pre;
+
     const question: IQuestionInfo = {
       id: cur.id,
       userInfo: {
-        userName: cur.user.nickname,
-        profileImageURL: cur.user.profileImage,
+        userName: user.nickname,
+        profileImageURL: user.profileImage,
       },
       slideInfo: {
         page: cur.slideOrder,
