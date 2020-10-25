@@ -8,13 +8,7 @@ const dummyQuestionRow: IQuestionRow[] = [
     slideOrder: 1,
     like: 0,
     title: "이부분 질문",
-    user: {
-      id: "1",
-      nickname: "김철수",
-      email: "chulsu@gmmail.com",
-      profileImage:
-        "https://cdn1.iconfinder.com/data/icons/female-avatars-vol-1/256/female-portrait-avatar-profile-woman-sexy-afro-2-512.png",
-    },
+    user: "1",
     content: "이부분을 잘 모르겠어요",
     createdAt: "2020-09-20T04:58:22.304Z",
   },
@@ -23,13 +17,7 @@ const dummyQuestionRow: IQuestionRow[] = [
     slideOrder: 3,
     slideImageURL:
       "https://support.strava.com/hc/article_attachments/360057537172/Fullscreen_5_18_20__5_17_PM.jpg",
-    user: {
-      id: "2",
-      nickname: "홍길동",
-      email: "hong@korea.com",
-      profileImage:
-        "https://eruditegroup.co.nz/wp-content/uploads/2016/07/profile-dummy3.png",
-    },
+    user: "2",
     like: 3,
     title: "이부분이 어려워요",
     content: "어려워요",
