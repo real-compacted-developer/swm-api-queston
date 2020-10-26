@@ -1,6 +1,7 @@
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
+import cors from "cors";
 
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
@@ -10,6 +11,11 @@ import logger from "./utils/logger";
 
 const app = express();
 
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
