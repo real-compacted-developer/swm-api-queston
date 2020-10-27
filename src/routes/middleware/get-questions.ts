@@ -46,19 +46,18 @@ export async function getQuestions(req: Request, res: Response) {
   for (const key of userIdArray) {
     const userData = await DBLayerUser(key);
 
-    if (!userData) return;
+    if (!userData) continue;
     userMap.set(key, userData);
   }
 
   const responseData: IQuestionInfo[] = questionData.reduce((pre, cur) => {
-    const user = userMap.get(cur.user);
-    if (!user) return pre;
+    let user = userMap.get(cur.user);
 
     const question: IQuestionInfo = {
       id: cur.id,
       userInfo: {
-        userName: user.nickname,
-        profileImageURL: user.profileImage,
+        userName: user ? user.nickname : "찾을 수 없는 유저입니다.",
+        profileImageURL: user ? user.profileImage : "default",
       },
       slideInfo: {
         page: cur.slideOrder,
