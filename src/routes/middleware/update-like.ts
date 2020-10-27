@@ -45,7 +45,7 @@ export async function updateLike(req: Request, res: Response) {
 
   const questionData =
     type === "decrease"
-      ? await DBLayerQuestionDecrease(questionId)
+      ? await DBLayerQuestionDecrease(roomNumber, questionId)
       : await DBLayerQuestionIncrease(roomNumber, questionId);
 
   if (!questionData) {
