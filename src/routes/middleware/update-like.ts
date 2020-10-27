@@ -38,7 +38,7 @@ export async function updateLike(req: Request, res: Response) {
     return;
   }
 
-  const { questionId, roomNumber } = req.params;
+  const { questionId } = req.params;
   const { type } = req.query;
 
   console.log(type, questionId);
@@ -46,7 +46,7 @@ export async function updateLike(req: Request, res: Response) {
   const questionData =
     type === "decrease"
       ? await DBLayerQuestionDecrease(questionId)
-      : await DBLayerQuestionIncrease(roomNumber, questionId);
+      : await DBLayerQuestionIncrease(questionId);
 
   if (!questionData) {
     const responseJSON: FailResponse = {
