@@ -7,7 +7,7 @@ type Option = {
   diff: 1 | -1;
 };
 
-async function testConnection(questionId: string) {
+async function testConnection(studyId: string, questionId: string) {
   const dummyData: IQuestionRow = JSON.parse(JSON.stringify(dummyQuestionRow))
     .default[0];
 
@@ -16,10 +16,12 @@ async function testConnection(questionId: string) {
   return dummyData;
 }
 
-async function fetchData(questionId: string) {
+async function fetchData(studyId: string, questionId: string) {
   try {
     const response = await axios
-      .delete(`${process.env.DB_LAYER_HOST}/question/like/${questionId}`)
+      .delete(
+        `${process.env.DB_LAYER_HOST}/question/like/${studyId}/${questionId}`
+      )
       .then((response) => response.data);
 
     const { data, success } = response;
@@ -32,6 +34,7 @@ async function fetchData(questionId: string) {
 }
 
 export let fetchQuestion: (
+  studyId: string,
   questionId: string
 ) => Promise<IQuestionRow | undefined>;
 
