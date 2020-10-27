@@ -25,7 +25,7 @@ router.get(
 );
 
 /**
- * @api {patch} /question/:questionId?type=increase 방의 질문의 좋아요를 변화시킴 (1개씩)
+ * @api {patch} study/:roomNumber/question/:questionId?type=increase 방의 질문의 좋아요를 변화시킴 (1개씩)
  * @apiName IncreaseLike
  * @apiGroup Question
  *
@@ -37,7 +37,7 @@ router.get(
  * @apiSuccess {Object} data 좋아요를 증가시킨 질문 정보
  */
 router.patch(
-  "/question/:questionId",
+  "study/:roomNumber/question/:questionId",
   [checkParamAndQuery("questionId").isString()],
   updateLike
 );
